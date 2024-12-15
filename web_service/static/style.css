@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #e0f7fa, #b2dfdb); /* Градиент с голубым оттенком */
+    color: #333;
+    line-height: 1.6;
+    height: 100vh; /* Задаём высоту для всего окна */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form {
+    width: 100%; /* Форма теперь будет занимать всю ширину доступного пространства */
+    max-width: 700px; /* Увеличена максимальная ширина */
+    margin: 0 20px; /* Отступы по бокам для мобильных устройств */
+    padding: 25px 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #4b6d7d; /* Более спокойный и менее яркий цвет */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+    color: #555;
+}
+
+input, textarea, button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px 14px;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus {
+    border-color: #4b6d7d; /* Новый цвет акцента для фокуса */
+    box-shadow: 0 0 8px rgba(75, 109, 125, 0.25);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button {
+    background-color: #6c8d98; /* Новый цвет кнопки, более спокойный */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 12px 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #4b6d7d; /* Темный оттенок для кнопки при наведении */
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#responseMessage {
+    text-align: center;
+    font-size: 18px;
+    color: green;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    form {
+        margin: 0 10px; /* Меньше отступов на мобильных устройствах */
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input, textarea, button {
+        font-size: 14px;
+    }
+}
