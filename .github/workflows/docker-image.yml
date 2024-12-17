@@ -27,7 +27,7 @@ jobs:
       - name: Build and push app_service Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./app_service
+          context: ./app
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app_service:latest
       
