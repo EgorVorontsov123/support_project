@@ -24,15 +24,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Build and push Docker images
+      - name: Build and push app_service Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./app_service
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/app_service:latest,${{ secrets.DOCKER_USERNAME }}/web_service:latest
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/app_service:latest
+      
+      - name: Build and push web_service Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./web_service
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/web_service:latest
 
       - name: SSH to deploy server
         uses: appleboy/ssh-action@v0.1.6
