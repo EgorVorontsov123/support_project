@@ -15,7 +15,7 @@ services:
 
   db:
     image:
-      likosik/postgres:latest
+      postgres:latest
     ports:
       - "5432:5432"
     volumes:
@@ -41,7 +41,7 @@ services:
     container_name: web_service
   
   nginx:
-    image: likosik/nginx:latest
+    image: nginx:latest
     container_name: nginx
     ports:
       - "80:80"
