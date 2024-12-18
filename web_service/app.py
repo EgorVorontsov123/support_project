@@ -14,33 +14,17 @@ def index():
 def get_db_connection():
     try:
         conn = psycopg2.connect(
-            host="postgres_db",  # Название контейнера с базой данных
-            database="support_db",
+            host=os.getenv('EXTERNAL_DATABASE_URL'),
+            database="postgres_db_av9c",
             user="user",
-            password="password"
+            password=os.getenv('DATABASE_PASSWORD')
         )
         return conn
     except psycopg2.Error as e:
         print(f"Ошибка подключения к базе данных: {e}")
         return None
 
-# Отправка email через email_service
-def send_email(email, subject, description):
-    try:
-        response = requests.post(
-            "http://email_service:5000/send_email",  # Адрес email_service
-            json={
-                "email": email,
-                "subject": subject,
-                "description": description
-            }
-        )
-        if response.status_code == 200:
-            print("Email отправлен успешно")
-        else:
-            print(f"Ошибка отправки email: {response.status_code}, {response.text}")
-    except requests.RequestException as e:
-        print(f"Ошибка подключения к email_service: {e}")
+
 
 # Обработка POST-запроса
 @app.route('/tickets', methods=['POST'])
