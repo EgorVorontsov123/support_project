@@ -14,7 +14,7 @@ PROCESSED_LIST_ID = "673f38c8c5244b279e080dc1" # ID списка обработ�
 def fetch_and_process_tickets():
     try:
         conn = psycopg2.connect(
-            host=os.getenv('EXTERNAL_DATABASE_URL'),
+            host=os.getenv('DATABASE_HOST'),
             database="postgres_db_av9c",
             user="user",
             password=os.getenv('DATABASE_PASSWORD')

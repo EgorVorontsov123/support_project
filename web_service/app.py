@@ -14,7 +14,7 @@ def index():
 def get_db_connection():
     try:
         conn = psycopg2.connect(
-            host=os.getenv('EXTERNAL_DATABASE_URL'),
+            host=os.getenv('DATABASE_HOST'),
             database="postgres_db_av9c",
             user="user",
             password=os.getenv('DATABASE_PASSWORD')
