@@ -2,7 +2,7 @@
 
 set -e
 
-host="$EXTERNAL_DATABASE_URL"
+host="$DATABASE_HOST"
 shift
 cmd="$@"
 
