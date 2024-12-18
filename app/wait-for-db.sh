@@ -2,7 +2,7 @@
 
 set -e
 
-host="$DATABASE_HOST"
+host="$INTERNAL_DATABASE_URL"
 shift
 cmd="$@"
 
