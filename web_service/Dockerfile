@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y netcat && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /web_service
 
-COPY requirements.txt ./
+COPY web_service requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . ./
