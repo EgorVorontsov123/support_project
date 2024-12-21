@@ -1,17 +1,4 @@
 services:
-  app:
-    image:
-      likosik/app_service:latest
-    volumes:
-      - ./app:/app
-    networks:
-      - support_network
-    depends_on:
-      - db
-    container_name: app_service
-    env_file:
-      - .env
-
 
   db:
     image:
