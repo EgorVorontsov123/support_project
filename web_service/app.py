@@ -5,6 +5,7 @@ import requests  # Для отправки HTTP-запросов в email_servic
 import threading
 import time
 import os
+import logging
 
 app = Flask(__name__)
 
@@ -71,22 +72,22 @@ def create_ticket():
 
 
 def fetch_and_process_tickets():
-
+    logging.info("Fetching new tickets to process.")
     conn = get_db_connection()
     cursor = conn.cursor()
-    # Выборка новых тикетов, которые еще не добавлены в Trello
+
     cursor.execute(
         "SELECT id, username, email, subject, description FROM tickets WHERE status = 'new' AND is_in_trello = FALSE"
     )
     tickets = cursor.fetchall()
 
     if not tickets:
-        print("No new tickets to process.")
+        logging.info("No new tickets to process.")
         return
 
     for ticket in tickets:
         ticket_id, username, email, subject, description = ticket
-        print(f"Processing ticket {ticket_id} from {username}")
+        logging.info(f"Processing ticket {ticket_id} from {username}")
 
         # Логика отправки данных в Trello
         success = send_to_trello(username, email, subject, description)
@@ -97,12 +98,13 @@ def fetch_and_process_tickets():
                 (ticket_id,)
             )
             conn.commit()
-            print(f"Ticket {ticket_id} marked as added to Trello (is_in_trello: TRUE).")
+            logging.info(f"Ticket {ticket_id} marked as added to Trello (is_in_trello: TRUE).")
         else:
-            print(f"Failed to process ticket {ticket_id}.")
+            logging.error(f"Failed to process ticket {ticket_id}.")
 
     cursor.close()
     conn.close()
+
 
 def send_to_trello(username, email, subject, description):
     url = f"https://api.trello.com/1/cards"
