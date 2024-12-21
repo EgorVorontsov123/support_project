@@ -2,7 +2,7 @@
 
 set -e
 
-host="$1"
+host="${DATABASE_HOST}"
 shift
 cmd="$@"
 

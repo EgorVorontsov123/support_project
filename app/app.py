@@ -83,10 +83,10 @@ def send_to_trello(username, email, subject, description):
 def update_tickets_status_from_trello():
     try:
         conn = psycopg2.connect(
-            host="postgres_db",
-            database="support_db",
+            host=os.getenv('DATABASE_HOST'),
+            database="postgres_db_av9c",
             user="user",
-            password="password"
+            password=os.getenv('DATABASE_PASSWORD')
         )
         cursor = conn.cursor()
 
