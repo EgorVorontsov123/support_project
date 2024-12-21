@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . ./
 
 # Убеждаемся, что файл скопирован и сделан исполняемым
-RUN chmod +x ./wait-for-db.sh
+RUN chmod +x web_service/wait-for-db.sh
 
-ENTRYPOINT ["./wait-for-db.sh", "postgres_db", "--", "gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
+ENTRYPOINT ["web_service/wait-for-db.sh", "postgres_db", "--", "gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
 
