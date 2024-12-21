@@ -2,13 +2,17 @@ import psycopg2
 import requests
 import time
 import os
+from flask import Flask, jsonify
+from threading import Thread
+
+app = Flask(__name__)
 
 API_KEY = os.getenv("API_KEY")
 API_TOKEN = os.getenv("API_TOKEN")
 BOARD_ID = "uKRwHpBj"
-NEW_LIST_ID = "673f33da5d8736643b6afaf6"# ID списка с новыми тикетами
+NEW_LIST_ID = "673f33da5d8736643b6afaf6"  # ID списка с новыми тикетами
 IN_PROGRESS_LIST_ID = "673f33da5d8736643b6afaf7"  # ID списка "В обработке"
-PROCESSED_LIST_ID = "673f38c8c5244b279e080dc1" # ID списка обработанных тикетов
+PROCESSED_LIST_ID = "673f38c8c5244b279e080dc1"  # ID списка обработанных тикетов
 
 
 def fetch_and_process_tickets():
@@ -136,13 +140,29 @@ def update_status_from_trello(cursor, list_id, new_status):
         print(f"Failed to fetch cards from Trello (list {list_id}): {response.status_code}, {response.text}")
 
 
+# Flask route to check if the service is working
+@app.route('/status', methods=['GET'])
+def status():
+    return jsonify({"status": "Service is running"})
 
-# Основной цикл обработки
-if __name__ == "__main__":
+
+# Background thread that runs your ticket processing logic
+def run_background_task():
     while True:
         print("Checking for new tickets...")
         fetch_and_process_tickets()
         print("Synchronizing statuses with Trello...")
         update_tickets_status_from_trello()
         print("Waiting for 10 seconds before checking again...")
-        time.sleep(10)  # Ожидание 10 секунд перед следующей проверкой
+        time.sleep(10)  # Wait 10 seconds before checking again
+
+
+# Main entry point for the Flask app
+if __name__ == "__main__":
+    # Start the background task in a separate thread
+    thread = Thread(target=run_background_task)
+    thread.daemon = True
+    thread.start()
+
+    # Run the Flask app
+    app.run(host='0.0.0.0', port=8000)

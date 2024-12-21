@@ -13,5 +13,5 @@ COPY . ./
 
 RUN chmod +x app/wait-for-db.sh
 
-ENTRYPOINT ["app/wait-for-db.sh", "postgres_db", "--", "python3", "app/app.py"]
+ENTRYPOINT ["./wait-for-db.sh", "postgres_db", "--", "gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
 
