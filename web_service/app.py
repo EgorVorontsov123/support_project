@@ -4,7 +4,7 @@ import json
 import requests  # Для отправки HTTP-запросов в email_service
 import threading
 import time
-
+import os
 
 app = Flask(__name__)
 
