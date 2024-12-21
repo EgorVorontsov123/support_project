@@ -179,19 +179,23 @@ def update_status_from_trello(cursor, list_id, new_status):
     else:
         print(f"Failed to fetch cards from Trello (list {list_id}): {response.status_code}, {response.text}")
 
+
+
+lock = threading.Lock()
+
 def check_tickets():
     while True:
         print("Checking for new tickets...")
-        fetch_and_process_tickets()
-        print("Synchronizing statuses with Trello...")
-        update_tickets_status_from_trello()
-        print("Waiting for 10 seconds before checking again...")
-        time.sleep(30)  # Ожидание 30 секунд перед следующей проверкой
+        with lock:  # Блокировка для предотвращения состояния гонки
+            fetch_and_process_tickets()
+            print("Synchronizing statuses with Trello...")
+            update_tickets_status_from_trello()
+        print("Waiting for 30 seconds before checking again...")
+        time.sleep(30)
 
 if __name__ == '__main__':
-    # Создаем и запускаем фоновый поток для цикла проверки тикетов
     ticket_check_thread = threading.Thread(target=check_tickets)
-    ticket_check_thread.daemon = True  # Поток завершится, когда завершится основной процесс
+    ticket_check_thread.daemon = True
     ticket_check_thread.start()
 
     app.run(debug=True, host='0.0.0.0', port=5000)
