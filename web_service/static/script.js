@@ -9,7 +9,7 @@ document.getElementById('ticketForm').addEventListener('submit', async function(
     };
 
     try {
-        const response = await fetch('http://localhost:5000/tickets', {
+        const response = await fetch('https://app-service-qwog.onrender.com/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
