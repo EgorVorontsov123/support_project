@@ -8,6 +8,13 @@ import time
 
 app = Flask(__name__)
 
+API_KEY = os.getenv("API_KEY")
+API_TOKEN = os.getenv("API_TOKEN")
+BOARD_ID = "uKRwHpBj"
+NEW_LIST_ID = "673f33da5d8736643b6afaf6"# ID списка с новыми тикетами
+IN_PROGRESS_LIST_ID = "673f33da5d8736643b6afaf7"  # ID списка "В обработке"
+PROCESSED_LIST_ID = "673f38c8c5244b279e080dc1" # ID списка обработанных тикетов
+
 # Главная страница
 @app.route('/')
 def index():
