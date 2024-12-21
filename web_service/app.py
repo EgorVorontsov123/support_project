@@ -183,20 +183,20 @@ def update_status_from_trello(cursor, list_id, new_status):
 
 lock = threading.Lock()
 
-def check_tickets():
-    while True:
-        print("Checking for new tickets...")
-        with lock:  # Блокировка для предотвращения состояния гонки
-            fetch_and_process_tickets()
-            print("Synchronizing statuses with Trello...")
-            update_tickets_status_from_trello()
-        print("Waiting for 30 seconds before checking again...")
-        time.sleep(30)
+# def check_tickets():
+#     while True:
+#         print("Checking for new tickets...")
+#         with lock:  # Блокировка для предотвращения состояния гонки
+#             fetch_and_process_tickets()
+#             print("Synchronizing statuses with Trello...")
+#             update_tickets_status_from_trello()
+#         print("Waiting for 30 seconds before checking again...")
+#         time.sleep(30)
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-    ticket_check_thread = threading.Thread(target=check_tickets)
-    ticket_check_thread.daemon = True
-    ticket_check_thread.start()
+    # logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    # ticket_check_thread = threading.Thread(target=check_tickets)
+    # ticket_check_thread.daemon = True
+    # ticket_check_thread.start()
 
     app.run(debug=True, host='0.0.0.0', port=5000)
