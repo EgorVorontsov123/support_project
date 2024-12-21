@@ -10,8 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . ./
 
-# ����������, ��� ���� ���������� � ������ �����������
+
 RUN chmod +x app/wait-for-db.sh
 
-ENTRYPOINT ["app/wait-for-db.sh", "postgres_db", "--", "python3", "app.py"]
+ENTRYPOINT ["app/wait-for-db.sh", "postgres_db", "--", "python3", "app/app.py"]
 
