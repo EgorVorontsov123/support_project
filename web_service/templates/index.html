@@ -7,22 +7,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Submit support request</h1>
+    <h1>Обращение в техническую поддержку</h1>
 
     <form id="ticketForm">
-        <label for="username">Name:</label>
+        <label for="username">Ваше имя:</label>
         <input type="text" id="username" name="username" required><br><br>
 
-        <label for="email">Email:</label>
+        <label for="email">Ваш адрес электронной почты:</label>
         <input type="email" id="email" name="email" required><br><br>
 
-        <label for="subject">Problem:</label>
+        <label for="subject">Проблема:</label>
         <input type="text" id="subject" name="subject" required><br><br>
 
-        <label for="description">Description:</label>
+        <label for="description">Описание проблемы:</label>
         <textarea id="description" name="description" rows="4" required></textarea><br><br>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Отправить</button>
     </form>
 
     <p id="responseMessage"></p>
